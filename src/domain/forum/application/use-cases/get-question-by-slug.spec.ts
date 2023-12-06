@@ -25,6 +25,6 @@ describe('Get Question By Slug Use Case', () => {
     })
 
     expect(question?.id).toEqual(expect.any(UniqueEntityId))
-    expect(question?.title).toBe('Título da pergunta')
+    expect(question?.title).toBe(newQuestion.title)
   })
 })

@@ -3,16 +3,21 @@ import {
   Question,
   QuestionProps,
 } from '@/domain/forum/enterprise/entities/question'
-import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
+import { faker } from '@faker-js/faker'
 
-export function makeQuestion(overrride: Partial<QuestionProps> = {}) {
-  const question = Question.create({
-    authorId: new UniqueEntityId(),
-    content: 'Conteúdo da pergunta',
-    title: 'Título da pergunta',
-    slug: Slug.create('titulo-da-pergunta'),
-    ...overrride,
-  })
+export function makeQuestion(
+  overrride: Partial<QuestionProps> = {},
+  id?: UniqueEntityId,
+) {
+  const question = Question.create(
+    {
+      authorId: new UniqueEntityId(),
+      content: faker.lorem.text(),
+      title: faker.lorem.sentence(),
+      ...overrride,
+    },
+    id,
+  )
 
   return question
 }
