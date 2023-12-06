@@ -4,7 +4,7 @@ import { CreateQuestionUseCase } from './create-question'
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: CreateQuestionUseCase
 
-describe('Create Questin Use Case', () => {
+describe('Create Question Use Case', () => {
   beforeEach(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
     sut = new CreateQuestionUseCase(inMemoryQuestionsRepository)
