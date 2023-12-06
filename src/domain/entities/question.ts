@@ -1,7 +1,7 @@
-import { Slug } from "./value-objects/slug"
-import { Entity } from "@/core/entities/entity"
-import { UniqueEntityId } from "@/core/entities/unique-entity-id"
-import { Optional } from "@/core/types/optional"
+import { Slug } from './value-objects/slug'
+import { Entity } from '@/core/entities/entity'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optional'
 
 interface QuestionProps {
   authorId: UniqueEntityId
@@ -14,17 +14,8 @@ interface QuestionProps {
 }
 
 export class Question extends Entity<QuestionProps> {
-
   get authorId() {
     return this.props.authorId
-  }
-
-  get title() {
-    return this.props.title
-  }
-
-  get content() {
-    return this.props.content
   }
 
   get slug() {
@@ -39,12 +30,12 @@ export class Question extends Entity<QuestionProps> {
     return this.props.updatedAt
   }
 
-  get bestAnswerId() {
-    return this.props.bestAnswerId
-  }
-
   private touch() {
     this.props.updatedAt = new Date()
+  }
+
+  get title() {
+    return this.props.title
   }
 
   set title(title: string) {
@@ -54,10 +45,18 @@ export class Question extends Entity<QuestionProps> {
     this.touch()
   }
 
+  get content() {
+    return this.props.content
+  }
+
   set content(content: string) {
     this.props.content = content
 
     this.touch()
+  }
+
+  get bestAnswerId() {
+    return this.props.bestAnswerId
   }
 
   set bestAnswerId(bestAnswerId: UniqueEntityId | undefined) {
@@ -65,12 +64,19 @@ export class Question extends Entity<QuestionProps> {
 
     this.touch()
   }
-  static create(props: Optional<QuestionProps, 'createdAt' | 'slug'>, id?: UniqueEntityId) {
-    const answer = new Question({
-      ...props,
-      slug: props.slug || Slug.createFromText(props.title),
-      createdAt: new Date(),
-    }, id)
+
+  static create(
+    props: Optional<QuestionProps, 'createdAt' | 'slug'>,
+    id?: UniqueEntityId,
+  ) {
+    const answer = new Question(
+      {
+        ...props,
+        slug: props.slug || Slug.createFromText(props.title),
+        createdAt: new Date(),
+      },
+      id,
+    )
 
     return answer
   }
