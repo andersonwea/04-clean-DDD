@@ -1,14 +1,14 @@
 import { InMemoryQuestionsRepository } from '@/test/repositories/in-memory-questions-repository'
 import { makeQuestion } from '@/test/factories/make-question'
-import { ListRecentQuestionUseCase } from './list-recent-questions'
+import { ListRecentQuestionsUseCase } from './list-recent-questions'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
-let sut: ListRecentQuestionUseCase
+let sut: ListRecentQuestionsUseCase
 
 describe('List Recent Questions Use Case', () => {
   beforeEach(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
-    sut = new ListRecentQuestionUseCase(inMemoryQuestionsRepository)
+    sut = new ListRecentQuestionsUseCase(inMemoryQuestionsRepository)
   })
 
   it('should be able to list recent questions', async () => {
