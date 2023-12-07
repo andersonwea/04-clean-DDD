@@ -1,17 +1,21 @@
 import { QuestionsRepository } from '../repositories/questions-repository'
 
-interface DeleteQuestionUseCaseRequest {
+interface EditQuestionUseCaseRequest {
   questionId: string
   authorId: string
+  content: string
+  title: string
 }
 
-export class DeleteQuestionUseCase {
+export class EditQuestionUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
 
   async execute({
     questionId,
     authorId,
-  }: DeleteQuestionUseCaseRequest): Promise<void> {
+    content,
+    title,
+  }: EditQuestionUseCaseRequest): Promise<void> {
     const question = await this.questionsRepository.findById(questionId)
 
     if (!question) {
@@ -22,6 +26,9 @@ export class DeleteQuestionUseCase {
       throw new Error('You are not the author of this question.')
     }
 
-    await this.questionsRepository.delete(questionId)
+    question.content = content
+    question.title = title
+
+    await this.questionsRepository.save(question)
   }
 }
