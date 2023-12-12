@@ -13,7 +13,7 @@ export class DeleteAnswerUseCase {
     authorId,
   }: DeleteAnswerUseCaseRequest): Promise<void> {
     const answer = await this.answersRepository.findById(answerId)
-    console.log(answer)
+
     if (!answer) {
       throw new Error('Answer not found.')
     }
