@@ -1,6 +1,5 @@
 import { InMemoryQuestionsRepository } from '@/test/repositories/in-memory-questions-repository'
 import { GetQuestionBySlugUseCase } from './get-question-by-slug'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Slug } from '../../enterprise/entities/value-objects/slug'
 import { makeQuestion } from '@/test/factories/make-question'
 
@@ -20,11 +19,11 @@ describe('Get Question By Slug Use Case', () => {
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       slug: 'titulo-da-pergunta',
     })
 
-    expect(question?.id).toEqual(expect.any(UniqueEntityId))
-    expect(question?.title).toBe(newQuestion.title)
+    expect(result.isRight()).toBe(true)
+    expect(inMemoryQuestionsRepository.items[0].title).toBe(newQuestion.title)
   })
 })
