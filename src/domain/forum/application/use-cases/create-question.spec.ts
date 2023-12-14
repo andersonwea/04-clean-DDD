@@ -21,10 +21,14 @@ describe('Create Question Use Case', () => {
 
     expect(result.isRight()).toBe(true)
     expect(inMemoryQuestionsRepository.items[0]).toEqual(result.value?.question)
-    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2)
-    expect(inMemoryQuestionsRepository.items[0].attachments).toEqual([
-      expect.objectContaining({ attachmentId: new UniqueEntityId('1') }),
-      expect.objectContaining({ attachmentId: new UniqueEntityId('2') }),
-    ])
+    expect(
+      inMemoryQuestionsRepository.items[0].attachments.getItems(),
+    ).toHaveLength(2)
+    expect(inMemoryQuestionsRepository.items[0].attachments.getItems()).toEqual(
+      [
+        expect.objectContaining({ attachmentId: new UniqueEntityId('1') }),
+        expect.objectContaining({ attachmentId: new UniqueEntityId('2') }),
+      ],
+    )
   })
 })
