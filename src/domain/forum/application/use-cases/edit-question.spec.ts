@@ -12,9 +12,11 @@ let sut: EditQuestionUseCase
 
 describe('Edit Question Use Case', () => {
   beforeEach(() => {
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
     sut = new EditQuestionUseCase(
       inMemoryQuestionsRepository,
       inMemoryQuestionAttachmentsRepository,
@@ -74,6 +76,7 @@ describe('Edit Question Use Case', () => {
       questionId: question.id.toString(),
       title: 'Novo título',
       content: 'Novo conteúdo',
+      attachmentsIds: [],
     })
 
     expect(result.isLeft()).toBe(true)
